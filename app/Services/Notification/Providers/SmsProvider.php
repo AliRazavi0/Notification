@@ -19,8 +19,8 @@ class SmsProvider implements Provider{
     {
         $client = new Client();
         $data = [
-            'UserApiKey' => config('services.sms.api'),
-            'SecretKey' => config('services.sms.pass'),
+            'UserApiKey' => config('services.sms.auth.api'),
+            'SecretKey' => config('services.sms.auth.pass'),
         ];
         $responseToken = $client->post(config('services.sms.token_url'), [
             'json' => $data
