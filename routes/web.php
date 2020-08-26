@@ -16,23 +16,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('admin')->middleware('web')->group(function () {
-    Route::get('',function(){
-        return response('جواب درخواست',201);
-    });
+Route::prefix('/notification/send')->group(function(){
+    Route::get('/email','NotificationController@home')->name('notifiction.form.index');
+    Route::get('/sms','NotificationController@smsFrom')->name('notifiction.form.sms');
+    Route::post('/email','NotificationController@sendEmail')->name('notifiction.send.email');
+    Route::post('/sms','NotificationController@sendSms')->name('notifiction.send.sms');
 });
-
-Route::get('/login',"HomeController@login");
-Route::post('/login','HomeController@store');
-
-Route::get('/','HomeController@index')->name('home.index');
-
-Route::get('/notification/send-email','NotificationController@home')->name('notifiction.form.index');
-Route::get('/notification/send-sms','NotificationController@smsFrom')->name('notifiction.form.sms');
-Route::post('/notification/send-email','NotificationController@sendEmail')->name('notifiction.send.email');
-Route::post('/notification/send-sms','NotificationController@sendSms')->name('notifiction.send.sms');
-
-
-
 
