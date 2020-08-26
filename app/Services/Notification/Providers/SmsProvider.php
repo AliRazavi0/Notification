@@ -30,6 +30,7 @@ class SmsProvider implements Provider{
 
     public function send()
     {
+        $this->handelErrorPhone();
         $client = new Client();
 
         $response = $client->post(config('services.sms.url'), [
@@ -41,7 +42,6 @@ class SmsProvider implements Provider{
 
     public  function preperData()
     {
-
         $data = [
             'Messages' => [$this->text],
             'MobileNumbers' => [$this->user->phone],
@@ -59,5 +59,11 @@ class SmsProvider implements Provider{
             'x-sms-ir-secure-token' => self::getToken(),
         ];
         return $headers;
+    }
+
+    public function handelErrorPhone(){
+       if (!$this->user->phone){
+            throw new Exception("phone does not exist");
+       }
     }
 }
